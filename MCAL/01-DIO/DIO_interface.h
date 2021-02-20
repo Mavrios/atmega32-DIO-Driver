@@ -73,6 +73,8 @@ DIO_ErrorStatus DIO_enumSetPortValue(u8 Copy_u8Port , u8 Copy_u8Value);
 
 DIO_ErrorStatus DIO_enumSetPinDirection(u8 Copy_u8PinNumber , u8 Copy_u8DirectionValue );
 DIO_ErrorStatus DIO_enumSetPinValue(u8 Copy_u8PinNumber , u8 Copy_u8PinValue );
+DIO_ErrorStatus DIO_enumTogglePinValue(u8 Copy_u8PinNumber);
+
 u8 DIO_u8ReadPinValue(u8 Copy_u8PinNumber);
 void DIO_voidActivePullUp(u8 Copy_u8PinNumber);
 

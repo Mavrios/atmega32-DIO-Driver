@@ -1,8 +1,8 @@
-#include "..\Services\STD_TYPES.h"
-#include "..\Services\BIT_MATHS.h"
+#include "../../Services/STD_TYPES.h"
+#include "../../Services/BIT_MATHS.h"
 
-#include "..\MCAL\DIO_interface.h"
-#include "..\MCAL\DIO_private.h"
+#include "DIO_interface.h"
+#include "DIO_private.h"
 
 DIO_ErrorStatus DIO_enumSetPortDirection(u8 Copy_u8Port, u8 Copy_u8Direction) {
 
@@ -188,4 +188,39 @@ u8 DIO_u8ReadPinValue(u8 Copy_u8PinNumber) {
 
 void DIO_voidActivePullUp(u8 Copy_u8PinNumber) {
 	DIO_enumSetPinValue(Copy_u8PinNumber, DIO_HIGH);
+}
+
+
+DIO_ErrorStatus DIO_enumTogglePinValue(u8 Copy_u8PinNumber){
+	DIO_ErrorStatus LOC_enumState = DIO_OK;
+	/* 		PORTA		*/
+	if ((Copy_u8PinNumber >= DIO_u8_PORTA_START)
+			&& (Copy_u8PinNumber <= DIO_u8_PORTA_END)) {
+		TOGGEL_BIT(PORTA , Copy_u8PinNumber);
+	}
+
+	/* 		PORTB		*/
+	else if ((Copy_u8PinNumber >= DIO_u8_PORTB_START)
+			&& (Copy_u8PinNumber <= DIO_u8_PORTB_END)) {
+			TOGGEL_BIT(PORTB , Copy_u8PinNumber - (DIO_u8_PORTA_SIZE) );
+
+	}
+
+	/* 		PORTC		*/
+	else if ((Copy_u8PinNumber >= DIO_u8_PORTC_START)
+			&& (Copy_u8PinNumber <= DIO_u8_PORTC_END)) {
+			TOGGEL_BIT(PORTC , Copy_u8PinNumber - (DIO_u8_PORTA_SIZE + DIO_u8_PORTB_SIZE));
+
+	}
+
+	/* 		PORTD		*/
+	else if ((Copy_u8PinNumber >= DIO_u8_PORTD_START)
+			&& (Copy_u8PinNumber <= DIO_u8_PORTD_END)) {
+			TOGGEL_BIT(PORTD , Copy_u8PinNumber - (DIO_u8_PORTA_SIZE + DIO_u8_PORTB_SIZE + DIO_u8_PORTC_SIZE) );
+
+	}
+	else{
+		LOC_enumState = DIO_NOK;
+	}
+	return LOC_enumState;
 }
